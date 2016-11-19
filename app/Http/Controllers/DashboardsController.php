@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Articles;
 
 class DashboardsController extends Controller
 {
@@ -13,7 +14,8 @@ class DashboardsController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Articles::all();
+        return view('page.vw_articles', compact('articles'));
     }
 
     /**

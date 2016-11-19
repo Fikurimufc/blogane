@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Articles;
 
 class ArticlesController extends Controller
 {
@@ -34,7 +35,12 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $article = new Articles();
+        $article->title     = $request->title;
+        $article->content   = $request->content;
+        $article->publish   = "Fikri";
+        $article->save();
+        return redirect()->route('home');
     }
 
     /**
@@ -56,7 +62,9 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $articles = Articles::find($id);
+       return view('page.vw_detailArticle',compact('articles'));
+        
     }
 
     /**
@@ -79,6 +87,8 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $articles = Articles::find($id);
+        $articles->delete($id);
+        return redirect()->back();
     }
 }
