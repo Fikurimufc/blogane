@@ -12,8 +12,7 @@
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input type="hidden" name="article_id" value="{{$articles->id}}">
 				<input type="hidden" name="user" value="Fikri">
-
-        		{{ Form::label('Comments',null,['class'=>'control-label','for'=>'content']) }}
+                {{ Form::label('Comments',null,['class'=>'control-label','for'=>'content']) }}
           		{{  Form::textarea('content',null,['class'=>'form-control']) }}
                 <button type="submit" class="btn btn-raised btn-primary btn-small">Add Comment</button>
                 {{Form::close()}}
