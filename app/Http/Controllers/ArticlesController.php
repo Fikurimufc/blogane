@@ -47,8 +47,8 @@ class ArticlesController extends Controller
     }
 
     public function exportExcel($type){
-         $data = Articles::get()->toArray();
-         return Excel::create('itsolutionstuff_example', function($excel) use ($data) {
+         $data = Articles::find(6)->get(['title','content'])->toArray();
+         return Excel::create('jambal_blog', function($excel) use ($data) {
             $excel->sheet('mySheet', function($sheet) use ($data)
             {
                 $sheet->fromArray($data);
