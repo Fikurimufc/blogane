@@ -3,6 +3,7 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 			<a href="#" data-toggle="modal" data-target="#modalAdd" class="btn btn-raised btn-primary">Add Article</a>
+			<a href="" class="btn btn-raised btn-success">Import xls</a>
 		</div>
 		<div class="col-md-8 col-md-offset-3">
 		 <div class="panel panel-default">

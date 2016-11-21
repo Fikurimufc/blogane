@@ -23,9 +23,9 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->user;
+        
         return [
-        'email' => 'required|email|unique:users,email,'.$id,
+        'email' => 'required|email|unique:users',
 
         'password' => 'required|min: 8|confirmed',
 

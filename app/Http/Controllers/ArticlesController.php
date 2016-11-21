@@ -88,8 +88,8 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-       
-        
+       $articles = Articles::find($id);
+       return view('page.vw_edit', compact('articles'));        
     }
 
     /**
@@ -99,9 +99,14 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticlesRequest $request, $id)
     {
-        //
+        $articles = Articles::find($id);
+        $articles->title = $request->title;
+        $articles->content = $request->content;
+        $articles->publish = "Fikri";
+        $articles->save();
+        return redirect()->back();
     }
 
     /**

@@ -3,14 +3,15 @@
 
 	<div class="row">
         <div class="col-md-8 col-md-offset-2">
-           <a href="{{ route('export', $articles->id)}}"> 
+           <a href="{{ route('export',$articles->id)}}"> 
                 <button class="btn btn-raised btn-success">Export To Excel</button>
            </a>
         </div>
 		<div class="col-md-8 col-md-offset-2">
           <div class="well">
             <div class="pull-right">
-                <button class="btn btn-primary"><i class="material-icons">create</i></button>
+                <a href="{{route('article.edit', $articles->id)}}" class="btn btn-primary"><i class="material-icons">create</i></a>
+                <!-- <button class="btn btn-primary"><i class="material-icons">create</i></button> -->
             </div>
             <h1><strong>{{$articles->title}}</strong></h1>
           <p>{{$articles->content}}</p>

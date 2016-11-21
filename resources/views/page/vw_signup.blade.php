@@ -8,7 +8,7 @@
 			 {!! Form::open(['route'=>'save']) !!}
 			 <div class="form-group label-floating">
     			{!! Form::label('Your first name',null,['class'=>'control-label','for'=>'first_name'])!!}	
-    				{!! Form::text('img_name',null,['class'=>'form-control','id'=>'first_name']) !!}
+    				{!! Form::text('first_name',null,['class'=>'form-control','id'=>'first_name']) !!}
     			<div class="text-danger">{!! $errors->first('first_name') !!}</div>	
   			  </div>
   			  <div class="form-group label-floating">
