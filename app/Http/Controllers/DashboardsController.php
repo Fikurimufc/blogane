@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Articles;
+use App\Articles, App\Comments;
 
 class DashboardsController extends Controller
 {
@@ -12,10 +12,21 @@ class DashboardsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $articles = Articles::all();
-        return view('page.vw_articles', compact('articles'));
+        /*$articles = Articles::paginate(2);
+        return view('page.vw_articles', compact('articles'));*/
+        if ($request->ajax()){
+            $articles = Articles::paginate(2);
+            $view     = (String)view('articles._list')
+            ->with('articles',$articles)
+            ->render();
+            return response()->json(['view'=> $view]); 
+        }else{
+            $articles = Articles::paginate(2);
+            return view('page.vw_articles')
+            ->with('articles', $articles);
+        }
     }
 
     /**

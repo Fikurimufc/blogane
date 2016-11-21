@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Articles;
+use App\Articles, App\Comments;
 use App\Http\Requests\ArticlesRequest;
+use Excel;
 
 class ArticlesController extends Controller
 {
@@ -41,7 +42,19 @@ class ArticlesController extends Controller
         $article->content   = $request->content;
         $article->publish   = "Fikri";
         $article->save();
-        return redirect()->route('home');
+        /*$deb = dd($article);
+        return response()->json($deb);*/
+    }
+
+    public function exportExcel($type){
+         $data = Articles::get()->toArray();
+         return Excel::create('itsolutionstuff_example', function($excel) use ($data) {
+            $excel->sheet('mySheet', function($sheet) use ($data)
+            {
+                $sheet->fromArray($data);
+            });
+        })->download($type);
+
     }
 
     /**
@@ -64,7 +77,9 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         $articles = Articles::find($id);
-       return view('page.vw_detailArticle',compact('articles'));
+        $comments = Articles::find($id)->comments();
+        // dd($comments);
+       return view('page.vw_detailArticle',compact('articles','comments'));
         
     }
 

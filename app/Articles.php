@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Articles extends Model
 {
+	protected $fillable = ['title','content','publish'];
     public static function valid(){
     	return array(
     		'content'=>'required'	
@@ -13,6 +14,6 @@ class Articles extends Model
     }
 
     public function comments(){
-    	return $this->hasMany('App\Comment','article_id');
+    	return $this->hasMany('App\Comments','article_id');
     }
 }

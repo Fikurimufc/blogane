@@ -10,13 +10,15 @@
         {{HTML::style('assets/bootstrap/css/bootstrap.min.css')}}
         {{HTML::style('assets/material-design/css/bootstrap-material-design.min.css')}}
         {{HTML::style('assets/material-design/css/ripples.min.css.map')}}
-        
+        {{HTML::style('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}
+
         {{HTML::script('assets/js/jQuery-2.1.4.min.js')}}
         {{HTML::script('assets/bootstrap/js/bootstrap.min.js')}}
         {{HTML::script('assets/material-design/js/material.js')}}
         {{HTML::script('assets/material-design/js/material.min.js')}}
         {{HTML::script('assets/material-design/js/material.min.js')}}
-        {{HTML::script('assets/material-design/js/ripples.min.js')}}
+        <!-- {{HTML::script('assets/plugin/bootstrap-wysihtml5/ripples.min.js')}} -->
+        {{HTML::script('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}
     </head>
 	<body>
 		@yield('content')

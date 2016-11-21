@@ -7,7 +7,7 @@
 		<div class="col-md-8 col-md-offset-3">
 		 <div class="panel panel-default">
   			<div class="panel-body">
-    			<div class="col-md-6">
+    			<div id="articles-list" class="col-md-6">
     				@foreach($articles as $row)
     				  <h1><strong>{{$row->title}}</strong></h1>
     				  <p>{{$row->content}}</p>
@@ -20,10 +20,12 @@
     				  </form>
     				  </p>
     				@endforeach	
+    				{!! $articles->render() !!}
     			</div>
   			</div>
 	     </div>
 	    </div>
 	</div>
 	@include('page.vw_modalAdd')
+	@include('page.js_articles')
 @endsection

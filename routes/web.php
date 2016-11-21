@@ -16,7 +16,8 @@
 });*/
 
 Route::get('/signup','UsersController@signup')->name('signup');
-route::post('/save','UsersController@signup_store')->name('save');
+Route::post('/save','UsersController@signup_store')->name('save');
 Route::get('/',['as'=>'home','uses'=>'DashboardsController@index']);
+Route::get('export/{type}','ArticlesController@exportExcel');
 Route::resource('article','ArticlesController');
 Route::resource('comment','CommentsController');
