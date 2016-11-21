@@ -14,12 +14,12 @@
               <div class="text-danger">{!! $errors->first('title') !!}</div>  
             </div>
               <div class="form-group">
-                {!! Form::textarea('content',null,['placeholder'=>'Silahkan isi content','class'=>'form-control','id'=>'content']) !!}
+                <textarea class="form-control" name="content" id="textarea" placeholder="Place some text here" style="width: 80%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
               </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" id="submit" class="btn btn-primary">Post</button>
+        <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" id="submit" class="btn btn-raised btn-primary">Post</button>
         <!-- {!! Form::close() !!} -->
       </div>
     </div>
@@ -27,6 +27,8 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
+  $("#textarea").wysihtml5();
+
   $("#submit").click(function(){
   var data = {
     _token : $('input[name=_token]').val(),

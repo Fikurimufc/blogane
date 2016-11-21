@@ -15,7 +15,7 @@
     				  <form  method="POST" action="{{ route('article.destroy', $row->id) }}" accept-charset="UTF-8">
     					<input name="_method" type="hidden" value="DELETE">
                         <input name="_token" type="hidden" value="{{ csrf_token() }}">
-                        <a class="btn btn-raised btn-primary btn-xs" href="{{ route('article.edit', $row->id) }}">Detail</a>
+                        <a class="btn btn-raised btn-primary btn-xs" href="{{ route('article.show', $row->id) }}">Detail</a>
                         <input class="btn btn-raised btn-danger btn-xs" onclick="return confirm('Want Delete A File ?');" type="submit" value="Hapus" />
     				  </form>
     				  </p>

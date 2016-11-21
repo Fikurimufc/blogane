@@ -46,14 +46,23 @@ class ArticlesController extends Controller
         return response()->json($deb);*/
     }
 
-    public function exportExcel($type){
-         $data = Articles::find(6)->get(['title','content'])->toArray();
-         return Excel::create('jambal_blog', function($excel) use ($data) {
-            $excel->sheet('mySheet', function($sheet) use ($data)
+    public function exportExcel($id){
+         
+         $data  = Articles::select('title','content')
+         ->where('id', $id)
+         ->get()->toArray();
+         $comment = Comments::select('content')
+         ->where('article_id', $id)->get()->toArray();
+         //dd($data, $comment);
+         return Excel::create('jambal_blog', function($excel) use ($data, $comment) {
+            $excel->sheet('tessss', function($sheet) use ($data)
             {
                 $sheet->fromArray($data);
             });
-        })->download($type);
+              $excel->sheet('comment', function($sheet) use ($comment) {
+                $sheet->fromArray($comment);
+              });
+        })->download('xls');
 
     }
 
@@ -65,7 +74,10 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        //
+         $articles = Articles::find($id);
+        $comments = Articles::find($id)->comments;
+        // dd($comments);
+       return view('page.vw_detailArticle',compact('articles','comments'));
     }
 
     /**
@@ -76,10 +88,7 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-        $articles = Articles::find($id);
-        $comments = Articles::find($id)->comments();
-        // dd($comments);
-       return view('page.vw_detailArticle',compact('articles','comments'));
+       
         
     }
 
