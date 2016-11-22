@@ -9,6 +9,7 @@
 		 <div id="articles-list">
     		@foreach($articles as $row)
     		  <div class="well">
+                  <small><b>Posted by<em>"{{$row->publish}}"&nbsp;&nbsp;&nbsp;{{$row->created_at}}</em></b></small>  
                   <h1><strong>{{$row->title}}</strong></h1>
                       <p>{{$row->content}}</p>
                       <p>

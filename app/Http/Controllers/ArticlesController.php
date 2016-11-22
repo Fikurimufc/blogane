@@ -74,22 +74,23 @@ class ArticlesController extends Controller
     }
 
     public function import(Request $request){
-        $articles = new Articles();
-        if(Input::hasFile('import_file')){
-            $path = Input::file($request->import_file)->getRealPath();
-            $data = Excel::load($path, function($reader){
-            })->get();
+        
+
+        if(!Input::hasFile($request->file('import_file'))){
+            $data = Excel::load(Input::file('import_file')->getRealPath(), function ($reader){})->get(); 
             if(!empty($data) && $data->count()){
-                foreach($data as $key => $value){
-                    $articles->title   = $value->title;
-                    $articles->content = $value->content;
-                    $articles->publish = 'Fikri';
-                    $articles->save();
-                    dd('Insert Record successfully.');
-                }// close foreach
+                foreach($data as $key =>$value){
+                    $insert[] = ['title'    => $value->title,
+                                 'content'  => $value->content,
+                                 'publish'  =>  'fikri'   
+                                ];
+                }
+                if(!empty($insert)){
+                    DB::table('articles')->insert($insert);
+                    dd('success');
+                }
             }//close if
-            return redirect()->back();
-        }
+        }//close if input
     }
 
     /**

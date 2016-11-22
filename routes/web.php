@@ -26,3 +26,6 @@ Route::resource('comment','CommentsController');
 Route::get('login','SessionsController@login')->name('login');
 Route::post('login','SessionsController@login_store')->name('login.store');
 Route::get('logout','SessionsController@logout')->name('logout');
+
+//for check if email user is exist
+Route::get('forgot-password', 'RemindersController@create')->name('reminders.create');

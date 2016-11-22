@@ -6,7 +6,7 @@
         <h4 class="modal-title">Import File</h4>
       </div>
       <div class="modal-body">
-        {{ Form::open(['route'=>'import']) }}
+        {{ Form::open(['route'=>'import','files'=>true]) }}
         <div class="form-group">
         {{Form::file('import_file',['id'=>'import_file','multiple'=>''])}}
           <div class="input-group">
@@ -24,7 +24,7 @@
         <button type="submit" id="submit" class="btn btn-raised btn-primary">Import</button>
         {!! Form::close() !!}
       </div>
-    </div>
-  </div>
+    </div> <!-- close modal content -->
+  </div> <!-- close modal dialog -->
 </div>
 

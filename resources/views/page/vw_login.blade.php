@@ -15,6 +15,14 @@
 		{!! Form::password('password',['class'=>'form-control','id'=>'password']) !!}
 		 <div class="text-danger">{!! $errors->first('password') !!}</div>
 	</div>
+	<div class="pull-right">
+		{!! link_to(route('reminders.create'), 'Forgot Password?') !!}
+	</div>
+	<div class="form-group">
+		 {!! Form::label('remember', 'Remember Me', array('class' => 'col-lg-3 control-label')) !!}
+		 {!! Form::checkbox('remember', null, array('class' => 'form-control')) !!}
+	<div class="clear"></div>
+	</div>
 		<button type="submit" class="btn btn-raised btn-primary">Login</button>
 	{!! Form::close() !!}
 	</div>
