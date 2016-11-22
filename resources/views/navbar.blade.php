@@ -15,7 +15,7 @@
         <li><a href="{{route('home')}}">Home</a></li>
        @if (Sentinel::check())
           <li>{!! link_to(route('logout'),'logout') !!}</li>
-          <li><a>Wellcome{!! Sentinel::getUser()->email !!}</a></li>
+          <li><a>Wellcome&nbsp;&nbsp;{!! Sentinel::getUser()->first_name !!}</a></li>
         @else
            <li>{!! link_to(route('signup'), 'Signup') !!}</li>
            <li>{!! link_to(route('login'),  'Login') !!}</li> 
