@@ -44,9 +44,11 @@ class RemindersController extends Controller
                 $user = Sentinel::findById($getUser->id);
                 ($reminder = Reminder::exists($user)) || ($reminder = Reminder::create($user));
                 Event::fire(new ReminderEvent($user, $reminder));
+                Session::flash('notice','Check your email');
+            }else{
                 Session::flash('error','Email not valid');
             }
-            return view();
+            return view('reminder.create');
     }
 
     /**
@@ -68,7 +70,12 @@ class RemindersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Sentinel::findById($id);
+            if (Reminder::exists($user, $code)){
+                return view('reminder.update');
+            }else{
+                return redirect('/');
+            }
     }
 
     /**
@@ -80,7 +87,15 @@ class RemindersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Sentinel::findById($id);
+        $reminder = Reminder::exists($user, $code);
+            if ($reminder){
+               Session::flash('notice', 'Your password success modified');
+               Reminder::complete($user, $code, $request->password);
+               return redirect('login');
+            }else{
+                Session::flash('error','Password must match');
+            }
     }
 
     /**
