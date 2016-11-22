@@ -16,8 +16,13 @@
 });*/
 
 Route::get('/signup','UsersController@signup')->name('signup');
-Route::post('/save','UsersController@signup_store')->name('save');
 Route::get('/',['as'=>'home','uses'=>'DashboardsController@index']);
 Route::get('export/{type}','ArticlesController@exportExcel')->name('export');
+Route::post('/save','UsersController@signup_store')->name('save');
+Route::post('/import','ArticlesController@import')->name('import');
 Route::resource('article','ArticlesController');
 Route::resource('comment','CommentsController');
+
+Route::get('login','SessionsController@login')->name('login');
+Route::post('login','SessionsController@login_store')->name('login.store');
+Route::get('logout','SessionsController@logout')->name('logout');

@@ -1,10 +1,8 @@
 @extends('navbar')
 @section('page')
-
-	<div class="row">
+  <div class="row">
         <div class="col-md-8 col-md-offset-2">
-           <a href="{{ route('export',$articles->id)}}"> 
-                <button class="btn btn-raised btn-success">Export To Excel</button>
+           <a href="{{ route('export',$articles->id)}}">    <button class="btn btn-raised btn-success">Export To Excel</button>
            </a>
         </div>
 		<div class="col-md-8 col-md-offset-2">

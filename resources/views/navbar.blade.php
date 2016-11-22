@@ -11,13 +11,15 @@
       <a class="navbar-brand" href="javascript:void(0)">The Jambal</a>
     </div>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
-      
         <ul class="nav navbar-nav">
         <li><a href="{{route('home')}}">Home</a></li>
-        <li><a href="{{route('signup')}}">Signup</a></li>
-        <li><a href="">Login</a></li>
-      </ul>
-      
+       @if (Sentinel::check())
+          <li>{!! link_to(route('logout'),'logout') !!}</li>
+          <li><a>Wellcome{!! Sentinel::getUser()->email !!}</a></li>
+        @else
+           <li>{!! link_to(route('signup'), 'Signup') !!}</li>
+           <li>{!! link_to(route('login'),  'Login') !!}</li> 
+        @endif  
     </div>
   </div>
 </div>

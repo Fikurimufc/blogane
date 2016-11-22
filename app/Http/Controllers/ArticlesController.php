@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Articles, App\Comments;
 use App\Http\Requests\ArticlesRequest;
@@ -14,6 +17,10 @@ class ArticlesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        $this->middleware('sentinel');
+    }
+
     public function index()
     {
         //
@@ -66,6 +73,25 @@ class ArticlesController extends Controller
 
     }
 
+    public function import(Request $request){
+        $articles = new Articles();
+        if(Input::hasFile('import_file')){
+            $path = Input::file($request->import_file)->getRealPath();
+            $data = Excel::load($path, function($reader){
+            })->get();
+            if(!empty($data) && $data->count()){
+                foreach($data as $key => $value){
+                    $articles->title   = $value->title;
+                    $articles->content = $value->content;
+                    $articles->publish = 'Fikri';
+                    $articles->save();
+                    dd('Insert Record successfully.');
+                }// close foreach
+            }//close if
+            return redirect()->back();
+        }
+    }
+
     /**
      * Display the specified resource.
      *
@@ -101,8 +127,9 @@ class ArticlesController extends Controller
      */
     public function update(ArticlesRequest $request, $id)
     {
+      
         $articles = Articles::find($id);
-        $articles->title = $request->title;
+        $articles->title    = $request->title;
         $articles->content = $request->content;
         $articles->publish = "Fikri";
         $articles->save();
