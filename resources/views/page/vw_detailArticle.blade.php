@@ -23,6 +23,7 @@
                <p><strong>{{$row->content}}</strong></p>
            </div>
            @endforeach
+           @if(Sentinel::check())
            <div class="panel panel-primary">
                <div class="panel-heading">
                  <h3 class="panel-title">Add Comment</h3>
@@ -30,12 +31,9 @@
                <div class="panel-body">
                 {{Form::open(['route'=>'comment.store'])}}
                 <div class="form-group label-floating">
-                    {{Form::label('Your name',null,['class'=>'control-label','for'=>'user'])}}
-                    {{Form::text('user',null,['class'=>'form-control','id'=>'user'])}}
-                </div>
-                <div class="form-group label-floating">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input type="hidden" name="article_id" value="{{$articles->id}}">
+                {{Form::hidden('user',Sentinel::getUser()->first_name)}}
                {{ Form::label('Comments',null,['class'=>'control-label','for'=>'content']) }}
                  {{ Form::textarea('content',null,['class'=>'form-control','id'=>'content']) }} 
                 <button type="submit" class="btn btn-raised btn-primary btn-small">Add Comment</button>
@@ -43,6 +41,9 @@
                 </div>
                </div> <!-- close panel body -->
            </div> <!-- close panel-primary -->
+            @else
+              <h2><em>You must login if want to add comment</em></h2>
+           @endif
     	</div> <!-- close Div col md 7 -->
 	</div>
     <script type="text/javascript">

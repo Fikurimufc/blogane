@@ -68,11 +68,11 @@ class RemindersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $code)
     {
         $user = Sentinel::findById($id);
             if (Reminder::exists($user, $code)){
-                return view('reminder.update');
+                return view('reminder.edit');
             }else{
                 return redirect('/');
             }

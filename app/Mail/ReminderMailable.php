@@ -29,9 +29,9 @@ class ReminderMailable extends Mailable
      */
     public function build()
     {
-        return $this->form('admin@jambal.com')
+        return $this->from('admin@jambal.com')
         ->subject('Jambal - Request reset password')
-        ->view('emails.remider')
+        ->view('email.reminder')
         ->with([
                'detail' => $this->detail, 
             ]);

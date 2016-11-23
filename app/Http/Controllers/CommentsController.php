@@ -42,9 +42,14 @@ class CommentsController extends Controller
             if ($validate->fails()){
                 return Redirect::to('article/'.$request->article_id.'/edit')->withErrors($validate)->withInput();
             }else{
+                /*$comment = new Comments();
+                $comment->content = $request->content;
+                $comment->article_id = $request->article_id;
+                $comment->user = Sentinel::getUser()->first_name;*/
                 Comments::create($request->all());
                 Session::flash('notice','Success and');
-                return Redirect::to('article/'. $request->article_id.'/edit');
+                return Redirect::to('article/'. $request->article_id);
+                
             }
     }
 

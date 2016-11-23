@@ -18,7 +18,7 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct(){
-        // $this->middleware('sentinel');
+         //$this->middleware('sentinel');
     }
 
     public function index()
@@ -44,6 +44,7 @@ class ArticlesController extends Controller
      */
     public function store(ArticlesRequest $request)
     {
+
         $article = new Articles();
         $article->title     = $request->title;
         $article->content   = $request->content;
@@ -51,6 +52,7 @@ class ArticlesController extends Controller
         $article->save();
         /*$deb = dd($article);
         return response()->json($deb);*/
+
     }
 
     public function exportExcel($id){
@@ -58,7 +60,7 @@ class ArticlesController extends Controller
          $data  = Articles::select('title','content')
          ->where('id', $id)
          ->get()->toArray();
-         $comment = Comments::select('content')
+         $comment = Comments::select('content','user')
          ->where('article_id', $id)->get()->toArray();
          //dd($data, $comment);
          return Excel::create('jambal_blog', function($excel) use ($data, $comment) {
@@ -77,19 +79,24 @@ class ArticlesController extends Controller
         
 
         if(!Input::hasFile($request->file('import_file'))){
-            $data = Excel::load(Input::file('import_file')->getRealPath(), function ($reader){})->get(); 
-            if(!empty($data) && $data->count()){
-                foreach($data as $key =>$value){
-                    $insert[] = ['title'    => $value->title,
-                                 'content'  => $value->content,
-                                 'publish'  =>  'fikri'   
-                                ];
+            $data = Excel::selectSheetsByIndex(0)->load(Input::file('import_file'), function ($reader){})->get()->toArray(); 
+            $data_comment = Excel::selectSheetsByIndex(1)->load(Input::file('import_file'), function ($reader){})->get()->toArray(); 
+                foreach($data as $key ){
+                   $articles = new Articles();
+                   $articles->title = $key['title'];
+                   $articles->content = $key['content'];
+                   $articles->publish = 'Fikri';
+                   $articles->save(); 
                 }
-                if(!empty($insert)){
-                    DB::table('articles')->insert($insert);
-                    dd('success');
+
+                foreach($data_comment as $row){
+                    $comment = new Comments();
+                    $comment->content = $row['content'];
+                    $comment->article_id = $articles->id;
+                    $comment->user = $row['user'];
                 }
-            }//close if
+
+            
         }//close if input
     }
 
@@ -115,7 +122,9 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
+        
        $articles = Articles::find($id);
+
        return view('page.vw_edit', compact('articles'));        
     }
 

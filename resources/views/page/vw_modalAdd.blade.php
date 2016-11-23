@@ -6,7 +6,7 @@
         <h4 class="modal-title">Add Content</h4>
       </div>
       <div class="modal-body">
-         <!-- {!! Form::open(['route'=>'article.store']) !!} -->
+         {!! Form::open(['route'=>'article.store']) !!}
             <div class="form-group  label-floating">
               {!! Form::label('Title',null,['class'=>'control-label','for'=>'title'])!!}
               <input name="_token" type="hidden" value="{{ csrf_token() }}">
@@ -20,7 +20,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Close</button>
         <button type="submit" id="submit" class="btn btn-raised btn-primary">Post</button>
-        <!-- {!! Form::close() !!} -->
+        {!! Form::close() !!}
       </div>
     </div>
   </div>

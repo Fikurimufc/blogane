@@ -31,5 +31,8 @@ Route::get('logout','SessionsController@logout')->name('logout');
 //for check if email user is exist
 Route::get('forgot-password', 'RemindersController@create')->name('reminder.create');
 Route::post('forgot-password','RemindersController@store')->name('reminder.store');
+Route::get('reset-password/{id}/{token}', 'RemindersController@edit')->name('reminder.edit');
+Route::post('reset-password/{id}/{token}', 'ReminderController@update')->name('reminder.update');
+
 //for handle changes password
 //Route::get('');

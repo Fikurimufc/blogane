@@ -9,6 +9,6 @@
   <br />
   but if you do, please click link below for futher intruction.
 </p>
-{!! link_to(route('reminders.edit', ['id' => $detail['id'], 'code' => $detail['code']]), 'Click me') !!}
+{!! link_to(route('reminder.edit', ['id' => $detail['id'], 'code' => $detail['code']]), 'Click me') !!}
 <h2>Thanks</h2>
 </body>

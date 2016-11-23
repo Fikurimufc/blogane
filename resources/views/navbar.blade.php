@@ -11,7 +11,7 @@
       <a class="navbar-brand" href="javascript:void(0)">The Jambal</a>
     </div>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav pull-right">
         <li><a href="{{route('home')}}">Home</a></li>
        @if (Sentinel::check())
           <li>{!! link_to(route('logout'),'logout') !!}</li>
@@ -20,6 +20,7 @@
            <li>{!! link_to(route('signup'), 'Signup') !!}</li>
            <li>{!! link_to(route('login'),  'Login') !!}</li> 
         @endif  
+        </ul>
     </div>
   </div>
 </div>

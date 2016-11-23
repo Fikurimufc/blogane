@@ -16,7 +16,7 @@
 		 <div class="text-danger">{!! $errors->first('password') !!}</div>
 	</div>
 	<div class="pull-right">
-		{!! link_to(route('reminders.create'), 'Forgot Password?') !!}
+		{!! link_to(route('reminder.create'), 'Forgot Password?') !!}
 	</div>
 	<div class="form-group">
 		 {!! Form::label('remember', 'Remember Me', array('class' => 'col-lg-3 control-label')) !!}
