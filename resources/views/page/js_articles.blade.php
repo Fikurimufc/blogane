@@ -1,6 +1,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(document).on('click','.pagination', function(e){
+		$(document).on('click','.pagination a', function(e){
 			get_page($(this).attr('href').split('page=')[1]);
 			e.preventDefault();
 		});
@@ -8,7 +8,7 @@
 
 	function get_page(page){
 		$.ajax({
-			url : '/articles?page='+page,
+			url : '/article?page='+page,
 			type: 'GET',
 			dataType : 'json',
 			success : function(data){

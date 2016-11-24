@@ -18,7 +18,7 @@
 Route::resource('article','ArticlesController');
 Route::resource('comment','CommentsController');
 Route::get('/signup','UsersController@signup')->name('signup');
-Route::get('/',['as'=>'home','uses'=>'DashboardsController@index']);
+Route::get('/',['as'=>'home','uses'=>'ArticlesController@index']);
 Route::get('export/{type}','ArticlesController@exportExcel')->name('export');
 Route::post('/save','UsersController@signup_store')->name('save');
 Route::post('/import','ArticlesController@import')->name('import');
@@ -32,7 +32,7 @@ Route::get('logout','SessionsController@logout')->name('logout');
 Route::get('forgot-password', 'RemindersController@create')->name('reminder.create');
 Route::post('forgot-password','RemindersController@store')->name('reminder.store');
 Route::get('reset-password/{id}/{token}', 'RemindersController@edit')->name('reminder.edit');
-Route::post('reset-password/{id}/{token}', 'ReminderController@update')->name('reminder.update');
+Route::post('reset-password/{id}/{token}', 'RemindersController@update')->name('reminder.update');
 
 //for handle changes password
 //Route::get('');

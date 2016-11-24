@@ -13,8 +13,9 @@
               {!! Form::text('title',null,['class'=>'form-control','id'=>'title']) !!}
               <div class="text-danger">{!! $errors->first('title') !!}</div>  
             </div>
-              <div class="form-group">
-                <textarea class="form-control" name="content" id="textarea" placeholder="Place some text here" style="width: 80%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+              <div class="form-group label-floating">
+                 {{ Form::label('Put your mind',null,['class'=>'control-label','for'=>'content']) }}
+                 {{ Form::textarea('content',null,['class'=>'form-control','id'=>'content']) }} 
               </div>
       </div>
       <div class="modal-footer">

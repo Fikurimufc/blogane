@@ -21,9 +21,17 @@ class ArticlesController extends Controller
          //$this->middleware('sentinel');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax()){
+            $articles = Articles::paginate(2);
+            $view = (String)view('render._listArticles')->with('articles', $articles)
+                ->render();
+               return response()->json(['view'=>$view]); 
+        }else{
+            $articles = Articles::paginate(2);
+            return view('page.vw_articles')->with('articles', $articles);
+        }
     }
 
     /**
@@ -122,9 +130,7 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-        
        $articles = Articles::find($id);
-
        return view('page.vw_edit', compact('articles'));        
     }
 
