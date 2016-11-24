@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace blogane\Http\Middleware;
 use Sentinel;
 use Closure;
 

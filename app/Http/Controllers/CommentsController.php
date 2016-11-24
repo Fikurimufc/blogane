@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace blogane\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Comments, App\Articles;
+use blogane\Comments, blogane\Articles;
 use Illuminate\Support\Facades\Redirect;
 use Session;
 

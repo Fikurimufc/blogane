@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace blogane\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Http\Request\ReminderRequest;
+use blogane\User;
+use blogane\Http\Request\ReminderRequest;
 use Session, Event;
 use Sentinel, Reminder;
-use App\Events\ReminderEvent;
+use blogane\Events\ReminderEvent;
 
 class RemindersController extends Controller
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace blogane\Http\Controllers;
 
 use DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-use App\Articles, App\Comments;
-use App\Http\Requests\ArticlesRequest;
+use blogane\Articles, blogane\Comments;
+use blogane\Http\Requests\ArticlesRequest;
 use Excel;
 
 class ArticlesController extends Controller

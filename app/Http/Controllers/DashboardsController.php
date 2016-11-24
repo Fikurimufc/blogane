@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace blogane\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Articles, App\Comments;
+use blogane\Articles, blogane\Comments;
 
 class DashboardsController extends Controller
 {

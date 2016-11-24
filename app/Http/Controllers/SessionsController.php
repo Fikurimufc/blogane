@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace blogane\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Sentinel;
 use Session;
-use App\Http\Requests\SessionRequest;
+use blogane\Http\Requests\SessionRequest;
 
 class SessionsController extends Controller
 {

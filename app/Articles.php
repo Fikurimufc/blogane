@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace blogane;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +14,6 @@ class Articles extends Model
     }
 
     public function comments(){
-    	return $this->hasMany('App\Comments','article_id');
+    	return $this->hasMany('blogane\Comments','article_id');
     }
 }
