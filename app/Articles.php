@@ -16,4 +16,9 @@ class Articles extends Model
     public function comments(){
     	return $this->hasMany('blogane\Comments','article_id');
     }
+
+    public static function search($req_keyword){
+    	$articles = Articles::where('title','like', '%'.$req_keyword.'%');
+    	return $articles;
+    }
 }

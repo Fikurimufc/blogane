@@ -24,10 +24,17 @@ class ArticlesController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $articles = Articles::paginate(2);
+            $req_keyword = $request->keywords;
+            if ($request->keywords){
+               $articles = Articles::search($req_keyword)->paginate(2);
+            }else{
+                $articles = Articles::paginate(2);
+            }
+            
+            
             $view = (String)view('render._listArticles')->with('articles', $articles)
                 ->render();
-               return response()->json(['view'=>$view]); 
+               return response()->json(['view'=>$view,'object'=>$articles]); 
         }else{
             $articles = Articles::paginate(2);
             return view('page.vw_articles')->with('articles', $articles);

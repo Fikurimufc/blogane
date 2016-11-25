@@ -11,8 +11,17 @@
       <a class="navbar-brand" href="javascript:void(0)">The Jambal</a>
     </div>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
-        <ul class="nav navbar-nav pull-right">
-        <li><a href="{{route('home')}}">Home</a></li>
+        <ul class="nav navbar-nav">
+           <li><a href="{{route('home')}}">Home</a></li>
+           <li><a href="#">About</a></li>
+           <li><a href="">Contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <div class="navbar-form navbar-right">
+          <div class="form-group">
+            <li>{!! form::text('search',null,['class'=>'form-control','id'=>'keywords','placeholder'=>'Search article']) !!}</li>
+          </div>
+        </div>
        @if (Sentinel::check())
           <li>{!! link_to(route('logout'),'logout') !!}</li>
           <li><a>Wellcome&nbsp;&nbsp;{!! Sentinel::getUser()->first_name !!}</a></li>
@@ -28,6 +37,40 @@
       <h1>The Jambal Blog</h1>
       <p>True Story Magazine</p>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+     $('#keywords').on('keypress', function (e) {
+         if(e.which === 13){
+           /* $(this).attr("disabled", "disabled"); */
+            keyword();
+           
+          }
+
+   });
+
+     function keyword(){
+        $.ajax({
+          url : '/article',
+          type : 'GET',
+          dataType : 'json',
+          data : {
+            'keywords' : $('#keywords').val()
+          },
+          success : function(data){
+            $('#articles-list').html(data['view']);
+            console.log(data['object']);
+          },
+           error : function(xhr, status) {
+            console.log(xhr.error + " ERROR STATUS : " + status);
+            },
+            complete : function() {
+              alreadyloading = false;
+            }
+        });
+     }
+  });//close document
+</script>
       @yield('page')  
 @endsection
 
