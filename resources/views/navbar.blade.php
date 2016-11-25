@@ -42,9 +42,15 @@
 
      $('#keywords').on('keypress', function (e) {
          if(e.which === 13){
-           /* $(this).attr("disabled", "disabled");
-            keyword();*/
-            $.ajax({
+           /* $(this).attr("disabled", "disabled"); */
+            keyword();
+           
+          }
+
+   });
+
+     function keyword(){
+        $.ajax({
           url : '/article',
           type : 'GET',
           dataType : 'json',
@@ -62,13 +68,6 @@
               alreadyloading = false;
             }
         });
-          }
-
-   });
-
-     function keyword(){
-
-        
      }
   });//close document
 </script>
