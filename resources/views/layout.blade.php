@@ -19,6 +19,7 @@
         {{HTML::script('assets/material-design/js/material.min.js')}}
         <!-- {{HTML::script('assets/plugin/bootstrap-wysihtml5/ripples.min.js')}} -->
         {{HTML::script('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}
+        {{HTML::script('https://www.google.com/recaptcha/api.js' async defer)}}
     </head>
 	<body>
 		@yield('content')
