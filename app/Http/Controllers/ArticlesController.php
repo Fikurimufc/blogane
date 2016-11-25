@@ -26,10 +26,10 @@ class ArticlesController extends Controller
         if($request->ajax()){
             $req_keyword = $request->keywords;
             if ($request->keywords){
-               $articles = Articles::search($req_keyword);
-            }else{
-            $articles = Articles::paginate(2);
+               $articles = Articles::search($req_keyword)->paginate(2);
             }
+            
+            $articles = Articles::paginate(2);
             $view = (String)view('render._listArticles')->with('articles', $articles)
                 ->render();
                return response()->json(['view'=>$view,'object'=>$articles]); 
@@ -39,6 +39,9 @@ class ArticlesController extends Controller
         }
     }
 
+    public function article_search(Request $request){
+        
+    }
     /**
      * Show the form for creating a new resource.
      *
