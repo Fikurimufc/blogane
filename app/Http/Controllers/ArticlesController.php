@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
 use App\Articles, App\Comments;
 use App\Http\Requests\ArticlesRequest;
@@ -76,7 +77,6 @@ class ArticlesController extends Controller
         
         /*$deb = dd($article);
         return response()->json($deb);*/
-
     }
 
     public function exportExcel($id){
@@ -132,9 +132,11 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-         $articles = Articles::find($id);
+        $redis = Redis::connection();
+        $articles = Articles::find($id);
+        $redis->get($articles);
         $comments = Articles::find($id)->comments;
-        // dd($comments);
+
        return view('page.vw_detailArticle',compact('articles','comments'));
     }
 
