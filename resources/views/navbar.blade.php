@@ -19,7 +19,7 @@
         <ul class="nav navbar-nav navbar-right">
         <div class="navbar-form navbar-right">
           <div class="form-group">
-            <li>{!! form::text('search',null,['class'=>'form-control','id'=>'keywords','placeholder'=>'Search article']) !!}</li>
+            <li>{!! Form::text('search',null,['class'=>'form-control','id'=>'keywords','placeholder'=>'Search article']) !!}</li>
           </div>
         </div>
        @if (Sentinel::check())

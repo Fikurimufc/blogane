@@ -24,9 +24,9 @@ class ArticlesController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $req_keyword = $request->keywords;
+            // $req_keyword = $request->keywords;
             if ($request->keywords){
-               $articles = Articles::search($req_keyword)->paginate(2);
+               $articles = Articles::search($request->keywords)->paginate(2);
             }else{
                 $articles = Articles::paginate(2);
             }
@@ -59,12 +59,21 @@ class ArticlesController extends Controller
      */
     public function store(ArticlesRequest $request)
     {
-
-        $article = new Articles();
-        $article->title     = $request->title;
-        $article->content   = $request->content;
-        $article->publish   = "Fikri";
-        $article->save();
+        $secret = '6LdV9AwUAAAAAHfTnL_P_qj-HlyfaIQBoiB38B50';
+        $recaptcha = new \ReCaptcha\ReCaptcha($secret);
+         $resp = $recaptcha->verify($gRecaptchaResponse, $remoteIp);
+         if ($resp->isSuccess()){
+            $article = new Articles();
+            $article->title     = $request->title;
+            $article->content   = $request->content;
+            $article->publish   = "Fikri";
+            $article->save();
+         }else{
+             $errors = $resp->getErrorCodes();
+             Session::flash("captcha_error", $errors);
+             return redirect()->back();
+         }
+        
         /*$deb = dd($article);
         return response()->json($deb);*/
 
@@ -110,7 +119,7 @@ class ArticlesController extends Controller
                     $comment->article_id = $articles->id;
                     $comment->user = $row['user'];
                 }
-
+                return redirect()->back();
             
         }//close if input
     }

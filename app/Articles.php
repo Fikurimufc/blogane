@@ -18,7 +18,7 @@ class Articles extends Model
     }
 
     public static function search($req_keyword){
-    	$articles = Articles::where('title','like', '%'.$req_keyword.'%');
+    	$articles = Articles::where('title','ilike', '%'.$req_keyword.'%');
     	return $articles;
     }
 }

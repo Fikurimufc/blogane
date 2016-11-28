@@ -11,5 +11,6 @@
       <input class="btn btn-raised btn-danger btn-sm" onclick="return confirm('Want Delete A File ?');" type="submit" value="Hapus" />
       </form>
   </p>
- </div>		  
+ </div>	
 @endforeach
+{!! $articles->render() !!}
