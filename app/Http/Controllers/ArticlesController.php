@@ -19,7 +19,8 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct(){
-         //$this->middleware('sentinel');
+         $this->middleware('sentinel');
+         $this->middleware('sentinel.role');
     }
 
     public function index(Request $request)
