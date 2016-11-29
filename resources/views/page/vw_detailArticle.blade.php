@@ -1,7 +1,7 @@
 @extends('navbar')
 @section('page')
   <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8 col-md-offset-2">
            <a href="{{ route('export',$articles->id)}}">    <button class="btn btn-raised btn-success">Export To Excel</button>
            </a>
         </div>
@@ -45,7 +45,7 @@
               <h2><em>You must login if want to add comment</em></h2>
            @endif
     	</div> <!-- close Div col md 7 -->
-	</div>
+	</div> <!-- close  -->
     <script type="text/javascript">
        $(function(){
         $("#textarea").wysihtml5();

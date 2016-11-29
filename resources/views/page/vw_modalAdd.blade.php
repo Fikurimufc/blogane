@@ -17,6 +17,9 @@
                  {{ Form::label('Put your mind',null,['class'=>'control-label','for'=>'content']) }}
                  {{ Form::textarea('content',null,['class'=>'form-control','id'=>'content']) }} 
               </div>
+              <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LdV9AwUAAAAAI91h-boyklHuZMZ2Z1NxHIZs9C1"></div>
+              </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Close</button>

@@ -52,6 +52,11 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \blogane\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+<<<<<<< HEAD
         'sentinel' => \blogane\Http\Middleware\SentinelMiddleware::class,
+=======
+        'sentinel' => \App\Http\Middleware\SentinelMiddleware::class,
+        'sentinel.role' => \App\Http\Middleware\RoleSentinelMiddleware::class,
+>>>>>>> development
     ];
 }

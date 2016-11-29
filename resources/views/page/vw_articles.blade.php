@@ -22,8 +22,10 @@
                       </p>
               </div>		  
     		@endforeach	
+        {!! $articles->render() !!}
     	</div> <!-- close article list -->
-  			{!! $articles->render() !!}
+  			
+
 	    </div>
 	</div>
 	@include('page.vw_modalImport')

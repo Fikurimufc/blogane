@@ -5,10 +5,19 @@ namespace blogane\Http\Controllers;
 use DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
+
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use blogane\Articles, blogane\Comments;
 use blogane\Http\Requests\ArticlesRequest;
 use Excel;
+=======
+use App\Articles, App\Comments;
+use App\Http\Requests\ArticlesRequest;
+use Excel, Sentinel;
+>>>>>>> development
 
 class ArticlesController extends Controller
 {
@@ -18,20 +27,19 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct(){
-         //$this->middleware('sentinel');
+         $this->middleware('sentinel');
+         $this->middleware('sentinel.role');
     }
 
     public function index(Request $request)
     {
         if($request->ajax()){
-            $req_keyword = $request->keywords;
+            // $req_keyword = $request->keywords;
             if ($request->keywords){
-               $articles = Articles::search($req_keyword)->paginate(2);
+               $articles = Articles::search($request->keywords)->paginate(2);
             }else{
                 $articles = Articles::paginate(2);
             }
-            
-            
             $view = (String)view('render._listArticles')->with('articles', $articles)
                 ->render();
                return response()->json(['view'=>$view,'object'=>$articles]); 
@@ -57,17 +65,26 @@ class ArticlesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticlesRequest $request)
+    public function store(Request $request)
     {
-
-        $article = new Articles();
-        $article->title     = $request->title;
-        $article->content   = $request->content;
-        $article->publish   = "Fikri";
-        $article->save();
+        $secret = '6LdV9AwUAAAAAHfTnL_P_qj-HlyfaIQBoiB38B50';
+        $gRecaptchaResponse = '6LdV9AwUAAAAAI91h-boyklHuZMZ2Z1NxHIZs9C1';
+        $recaptcha = new \ReCaptcha\ReCaptcha($secret);
+         $resp = $recaptcha->verify($gRecaptchaResponse);
+         if ($resp->isSuccess()){
+            $article = new Articles();
+            $article->title     = $request->title;
+            $article->content   = $request->content;
+            $article->publish   = Sentinel::getUser()->first_name;
+            $article->save();
+         }else{
+             $errors = $resp->getErrorCodes();
+             Session::flash("captcha_error", $errors);
+             return redirect()->back();
+         }
+        
         /*$deb = dd($article);
         return response()->json($deb);*/
-
     }
 
     public function exportExcel($id){
@@ -110,7 +127,7 @@ class ArticlesController extends Controller
                     $comment->article_id = $articles->id;
                     $comment->user = $row['user'];
                 }
-
+                return redirect()->back();
             
         }//close if input
     }
@@ -123,9 +140,11 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-         $articles = Articles::find($id);
+        $redis = Redis::connection();
+        $articles = Articles::find($id);
+        $redis->get($articles);
         $comments = Articles::find($id)->comments;
-        // dd($comments);
+
        return view('page.vw_detailArticle',compact('articles','comments'));
     }
 
@@ -150,13 +169,12 @@ class ArticlesController extends Controller
      */
     public function update(ArticlesRequest $request, $id)
     {
-      
         $articles = Articles::find($id);
-        $articles->title    = $request->title;
+        $articles->title   = $request->title;
         $articles->content = $request->content;
-        $articles->publish = "Fikri";
+        $articles->publish = Sentinel::getUser()->first_name;
         $articles->save();
-        return redirect()->back();
+        return redirect()->route('articles/'.$id.'/edit');
     }
 
     /**
