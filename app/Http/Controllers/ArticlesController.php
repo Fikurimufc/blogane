@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
+
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
 use App\Articles, App\Comments;
 use App\Http\Requests\ArticlesRequest;
-use Excel;
+use Excel, Sentinel;
 
 class ArticlesController extends Controller
 {
@@ -32,8 +34,6 @@ class ArticlesController extends Controller
             }else{
                 $articles = Articles::paginate(2);
             }
-            
-            
             $view = (String)view('render._listArticles')->with('articles', $articles)
                 ->render();
                return response()->json(['view'=>$view,'object'=>$articles]); 
@@ -59,16 +59,17 @@ class ArticlesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticlesRequest $request)
+    public function store(Request $request)
     {
         $secret = '6LdV9AwUAAAAAHfTnL_P_qj-HlyfaIQBoiB38B50';
+        $gRecaptchaResponse = '6LdV9AwUAAAAAI91h-boyklHuZMZ2Z1NxHIZs9C1';
         $recaptcha = new \ReCaptcha\ReCaptcha($secret);
-         $resp = $recaptcha->verify($gRecaptchaResponse, $remoteIp);
+         $resp = $recaptcha->verify($gRecaptchaResponse);
          if ($resp->isSuccess()){
             $article = new Articles();
             $article->title     = $request->title;
             $article->content   = $request->content;
-            $article->publish   = "Fikri";
+            $article->publish   = Sentinel::getUser()->first_name;
             $article->save();
          }else{
              $errors = $resp->getErrorCodes();
@@ -162,13 +163,12 @@ class ArticlesController extends Controller
      */
     public function update(ArticlesRequest $request, $id)
     {
-      
         $articles = Articles::find($id);
-        $articles->title    = $request->title;
+        $articles->title   = $request->title;
         $articles->content = $request->content;
-        $articles->publish = "Fikri";
+        $articles->publish = Sentinel::getUser()->first_name;
         $articles->save();
-        return redirect()->back();
+        return redirect()->route('articles/'.$id.'/edit');
     }
 
     /**

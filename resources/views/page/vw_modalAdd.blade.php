@@ -5,13 +5,6 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title">Add Content</h4>
       </div>
-       @if(Session::has('captcha_error'))
-        <div id="panel-custom" class="alert alert-dismissible alert-danger">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>Error</strong>
-          {!! Session::get('captcha_error') !!}
-      </div>
-     @endif  
       <div class="modal-body">
          {!! Form::open(['route'=>'article.store']) !!}
             <div class="form-group  label-floating">

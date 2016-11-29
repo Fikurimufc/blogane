@@ -5,7 +5,9 @@
 		<h1><strong>Edit&nbsp;"{{$articles->title}}"</strong></h1>
 		{{Form::open(['route'=>['article.update',$articles->id], 'method'=>'PATCH' ])}}
 		<div class="form-group label-floating">
-			{!! Form::label($articles->title,null,['class'=>'control-label','for'=>'title','value'=>$articles->title]) !!}
+			<input name="_token" type="hidden" value="{{ csrf_token() }}">
+			{!! Form::label($articles->
+			title,null,['class'=>'control-label','for'=>'title','value'=>$articles->title]) !!}
 			{!! Form::text('title',null,['class'=>'form-control','id'=>'title'])!!}
 		</div>
 		<div class="form-group">
