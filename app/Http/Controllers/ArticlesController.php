@@ -61,10 +61,13 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        $secret = '6LdV9AwUAAAAAHfTnL_P_qj-HlyfaIQBoiB38B50';
-        $gRecaptchaResponse = '6LdV9AwUAAAAAI91h-boyklHuZMZ2Z1NxHIZs9C1';
+        // $secret = '6LdV9AwUAAAAAHfTnL_P_qj-HlyfaIQBoiB38B50';
+        // $gRecaptchaResponse = '6LdV9AwUAAAAAI91h-boyklHuZMZ2Z1NxHIZs9C1';
+        $response = Input::get('g-recaptcha-response');
+        $remoteip  = $_SERVER['REMOTE_ADDR'];
+        $secret = env('RE_CAP_SECRET');
         $recaptcha = new \ReCaptcha\ReCaptcha($secret);
-         $resp = $recaptcha->verify($gRecaptchaResponse);
+         $resp = $recaptcha->verify($response, $remoteip);
          if ($resp->isSuccess()){
             $article = new Articles();
             $article->title     = $request->title;
@@ -74,9 +77,9 @@ class ArticlesController extends Controller
          }else{
              $errors = $resp->getErrorCodes();
              Session::flash("captcha_error", $errors);
-             return redirect()->back();
+             
          }
-        
+        return redirect()->back();
         /*$deb = dd($article);
         return response()->json($deb);*/
     }

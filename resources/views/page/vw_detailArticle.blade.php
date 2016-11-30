@@ -36,8 +36,13 @@
                 {{Form::hidden('user',Sentinel::getUser()->first_name)}}
                {{ Form::label('Comments',null,['class'=>'control-label','for'=>'content']) }}
                  {{ Form::textarea('content',null,['class'=>'form-control','id'=>'content']) }} 
-                <button type="submit" class="btn btn-raised btn-primary btn-small">Add Comment</button>
-                {{Form::close()}}
+                </div>
+                <div class="form-group">
+                  <div class="g-recaptcha" data-sitekey="{{ env('RE_CAP_SITE') }}"></div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-raised btn-primary btn-small">Add Comment</button>
+                    {{Form::close()}}
                 </div>
                </div> <!-- close panel body -->
            </div> <!-- close panel-primary -->

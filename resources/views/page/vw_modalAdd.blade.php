@@ -18,7 +18,7 @@
                  {{ Form::textarea('content',null,['class'=>'form-control','id'=>'content']) }} 
               </div>
               <div class="form-group">
-                <div class="g-recaptcha" data-sitekey="6LdV9AwUAAAAAI91h-boyklHuZMZ2Z1NxHIZs9C1"></div>
+                <div class="g-recaptcha" data-sitekey="{{ env('RE_CAP_SITE') }}"></div>
               </div>
       </div>
       <div class="modal-footer">

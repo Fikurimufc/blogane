@@ -21,4 +21,11 @@ class Articles extends Model
     	$articles = Articles::where('title','ilike', '%'.$req_keyword.'%');
     	return $articles;
     }
+
+    protected static function boot(){
+        parent::boot();
+        static::deleting(function($comment){
+            $comment->comments()->delete();
+        });
+    }
 }

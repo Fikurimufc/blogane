@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use App\Comments, App\Articles;
 use Illuminate\Support\Facades\Redirect;
@@ -36,20 +37,22 @@ class CommentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        // dd($request);
+    {   
+        $response = Input::get('g-recaptcha-response');
+        $remoteip  = $_SERVER['REMOTE_ADDR'];
+        $secret = env('RE_CAP_SECRET');
+        $recaptcha = new \ReCaptcha\ReCaptcha($secret);
+        $resp = $recaptcha->verify($response, $remoteip);
+       
         $validate = Validator::make($request->all(), Comments::valid());
             if ($validate->fails()){
                 return Redirect::to('article/'.$request->article_id.'/edit')->withErrors($validate)->withInput();
             }else{
-                /*$comment = new Comments();
-                $comment->content = $request->content;
-                $comment->article_id = $request->article_id;
-                $comment->user = Sentinel::getUser()->first_name;*/
+                if ($resp->isSuccess()){
                 Comments::create($request->all());
                 Session::flash('notice','Success and');
                 return Redirect::to('article/'. $request->article_id);
-                
+                }
             }
     }
 
