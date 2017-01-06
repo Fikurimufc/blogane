@@ -21,6 +21,7 @@
         {{HTML::script('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}
         <!-- {{HTML::script('https://www.google.com/recaptcha/api.js')}} -->
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
     </head>
 	<body>
 		@yield('content')

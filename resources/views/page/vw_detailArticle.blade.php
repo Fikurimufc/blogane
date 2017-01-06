@@ -2,9 +2,9 @@
 @section('page')
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-           <a href="{{ route('export',$articles->id)}}">    <button class="btn btn-raised btn-success">Export To Excel</button>
+           <a href="{{ route('export',$articles->id)}}"><button class="btn btn-raised btn-success">Export To Excel</button>
            </a>
-        </div>
+     </div>
 		<div class="col-md-8 col-md-offset-2">
           <div class="well">
             <div class="pull-right">
@@ -15,6 +15,9 @@
           <p>{{$articles->content}}</p>
           </div>
           <button class="btn btn-primary" data-toggle="collapse" data-target=".collapse">Show Comment</button>
+          <button class="btn btn-raised btn-primary" id="shareFB">share</button>
+          {{-- <div class="g-plus" data-action="share"></div> --}}
+           <g:plus action="share"></g:plus>
         </div>
         <div  class="col-md-7 col-md-offset-3">
            @foreach($comments as $row)
@@ -34,7 +37,7 @@
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input type="hidden" name="article_id" value="{{$articles->id}}">
                 {{Form::hidden('user',Sentinel::getUser()->first_name)}}
-               {{ Form::label('Comments',null,['class'=>'control-label','for'=>'content']) }}
+                {{Form::label('Comments',null,['class'=>'control-label','for'=>'content']) }}
                  {{ Form::textarea('content',null,['class'=>'form-control','id'=>'content']) }} 
                 </div>
                 <div class="form-group">
@@ -52,8 +55,35 @@
     	</div> <!-- close Div col md 7 -->
 	</div> <!-- close  -->
     <script type="text/javascript">
-       $(function(){
-        $("#textarea").wysihtml5();
+    //init facebook.
+     window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '209198282874466',
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+    FB.AppEvents.logPageView();
+    };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+   
+       $(document).ready(function() {
+        var link = window.location;
+        var url = 'https://www.facebook.com/dialog/share?app_id=209198282874466&display=popup&href='+link;
+         $("#shareFB").click(function(){
+           FB.ui({
+            method  : 'share',
+            display : 'popup',
+            href  :   link,
+           }, function(response){});
+         });
        });
     </script>
 @endsection

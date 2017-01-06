@@ -92,13 +92,18 @@ class MigrationCartalystSentinel extends Migration
         
         Schema::table('users', function (Blueprint $table) {
              $table->increments('id');
+             $table->string('first_name')->nullable();
+             $table->string('last_name')->nullable();
              $table->string('email');
              $table->text('permissions')->nullable();
              $table->timestamp('last_login')->nullable();
-             $table->dropColumn('name');
+             $table->rememberToken();
+             $table->timestamps();
+             $table->engine = 'InnoDB';
+             $table->unique('email');
         });
 
-          Schema::drop('password_resets');
+          
     }
 
     /**
@@ -114,11 +119,6 @@ class MigrationCartalystSentinel extends Migration
         Schema::drop('roles');
         Schema::drop('role_users');
         Schema::drop('throttle');
-        Schema::table('users', function(Blueprint $table){
-            $table->dropColumn('permissions');
-            $table->dropColumn('last_login');
-            $table->dropColumn('first_name');
-            $table->dropColumn('last_name');
-        });
+        Schema::drop('users');
     }
 }

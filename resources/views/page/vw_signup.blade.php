@@ -4,8 +4,7 @@
 	<div class="col-md-6 col-md-offset-3">
 	<h2>SIGNUP</h2>
 		<p class="lead">Signup if you not have account for access system</p>
-		
-			 {!! Form::open(['route'=>'save']) !!}
+		   {!! Form::open(['route'=>'save']) !!}
 			 <div class="form-group label-floating">
     			{!! Form::label('Your first name',null,['class'=>'control-label','for'=>'first_name'])!!}	
     				{!! Form::text('first_name',null,['class'=>'form-control','id'=>'first_name']) !!}
